@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		html, body {
+			width:  450px;
+		}
+		input {
+			margin:  0.4em;
+		}
+		body {
+		  background-color: #15202b;
+		  color: white;
+		}
+		@media screen and (prefers-color-scheme: light) {
+		  body {
+		    background-color: #8899a6;
+		    color: black;
+		  }
+		}
+		a {
+			color: #ccc;
+			font-size: 1.5em;
+			font-weight: bold;
+		}
+		button {
+			appearance: none;
+			background-color: #FAFBFC;
+			border: 1px solid rgba(27, 31, 35, 0.15);
+			border-radius: 6px;
+			box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+			box-sizing: border-box;
+			color: #24292E;
+			cursor: pointer;
+			display: inline-block;
+			font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+			font-weight: 500;
+			list-style: none;
+			padding: 0.15em 0.5em 0.4em;
+			position: relative;
+			transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+			user-select: none;
+			-webkit-user-select: none;
+			touch-action: manipulation;
+			vertical-align: middle;
+			white-space: nowrap;
+			word-wrap: break-word;
+		}
+
+		button:hover {
+			background-color: #F3F4F6;
+			text-decoration: none;
+			transition-duration: 0.1s;
+		}
+
+		button:disabled {
+			background-color: #FAFBFC;
+			border-color: rgba(27, 31, 35, 0.15);
+			color: #959DA5;
+			cursor: default;
+		}
+
+		button:active {
+			background-color: #EDEFF2;
+			box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+			transition: none 0s;
+		}
+
+		button:focus {
+			outline: 1px transparent;
+		}
+
+		button:before {
+			display: none;
+		}
+
+		button:-webkit-details-marker {
+			display: none;
+		}
+
+		button.success {
+			background-color: #4CAF50;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<button id="btnSave" type="button" class="success" style="float: right; margin-right: 1em;">Save</button>
+	<a href="#" id="linkHelp" style="float: right; margin-right: 1em;">Help</a>
+	<h3>TV Torrent Uploader Settings</h3>
+	<form id="settingsForm">
+		<div>
+			<label for="inputServer">qBt Server</label>
+			<input id="inputServer" type="text" name="server" placeholder="http://" />
+		</div>
+
+		<div>
+			<label for="inputPath">Download Path</label>
+			<input id="inputPath" type="text" name="base_path" placeholder="/downloads/TV Shows/$title/Season $season/Episdoe $episode">
+
+		</div>
+
+		<div>
+			<label for="inputMatchPattern">Match Pattern</label>
+			<input id="inputMatchPattern" type="text" name="match_pattern">
+			<button id="btnResetMatchPattern" type="button">Reset</button>
+			<p>1st group is Title, 2nd group is <code>S##E##</code></p>
+		</div>
+
+		<div>
+			<label for="inputMatchTest">Match Test</label>
+			<input id="inputMatchTest" type="text" value="The.Joy.Of.Painting.S02E04.1080p">
+			<pre id="pathExample"></pre>
+		</div>
+
+		<h4>Auth</h4>
+		<div>
+			<label for="inputEnableAuth">Enable</label>
+			<input id="inputEnableAuth" type="checkbox" name="enable_auth" value="true" />
+		</div>
+
+		<div>
+			<label for="inputUsername">Username</label>
+			<input id="inputUsername" type="text" name="username" />
+		</div>
+
+		<div>
+			<label for="inputPassword">Password</label>
+			<input id="inputPassword" type=password name="password" />
+		</div>
+
+
+		<h4>Auto Delete</h4>
+		<div>
+			<label for="inputAutoDelete">Enable</label>
+			<input id="inputAutoDelete" type="checkbox" name="auto_delete" value="true" />
+		</div>
+
+		<div>
+			<label for="inputTag">Auto Delete Tag</label>
+			<input id="inputTag" type="text" name="auto_delete_tag" />
+		</div>
+
+		<div>
+			<label for="inputDeleteAfterTime">Delete After Seeded (minutes)</label>
+			<input id="inputDeleteAfterTime" type="number" name="delete_after_time" />
+		</div>
+
+		<div>
+			<label for="inputDeleteAfterRatio">Delete After Ratio Exceeds</label>
+			<input id="inputDeleteAfterRatio" type="number" name="delete_after_ratio" />
+		</div>
+
+		<div>
+			<label for="inputDeleteRequiresAll">Delete requires all conditions?</label>
+			<input id="inputDeleteRequiresAll" type="checkbox" name="delete_requires_all_conditions" value="true" />
+		</div>
+
+		<div>
+			<label for="inputAutoDeleteInterval">Auto Delete Check Interval (minutes)</label>
+			<input id="inputAutoDeleteInterval" type="number" name="auto_delete_check_interval" />
+		</div>
+
+	</form>
+	<script type="module" src="settings.js"></script>
+</body>
+</html>
