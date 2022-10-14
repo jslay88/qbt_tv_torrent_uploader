@@ -10,9 +10,8 @@ function getConfig(callback = null) {
     chrome.storage.local.get(['config'], (result) => {
         config = result.config
         if (!config) {
-            config = defaultConfig
-        }
-        if (callback) {
+            setConfig(defaultConfig, callback)
+        } else if (callback) {
             callback(config)
         }
     })
