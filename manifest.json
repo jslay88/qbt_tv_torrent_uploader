@@ -1,31 +1,31 @@
 {
-    "manifest_version": 3,
-    "name": "qBt TV Torrent Upload",
-    "description": "Auto upload TV Torrent Magnet Links to qBt",
-    "version": "1.0.0",
-    "permissions": [
-        "alarms",
-        "contextMenus",
-        "declarativeNetRequest",
-        "declarativeNetRequestWithHostAccess",
-        "notifications",
-        "storage"
-    ],
-    "host_permissions": [
-        "http://*/",
-        "https://*/"  
-    ],
-    "background": {
-        "service_worker": "background.js",
-        "type": "module"
-    },
-    "action": {
-        "default_popup": "settings.html",
-        "default_icon": "img/icon_128.png"
-    },
-    "icons": {
-        "16": "img/icon_16.png",
-        "48": "img/icon_48.png",
-        "128": "img/icon_128.png"
-    }
+  "manifest_version": 3,
+  "name": "qBt TV Torrent Upload",
+  "description": "Auto upload TV Torrent Magnet Links to qBt",
+  "version": "1.0.0",
+  "permissions": [
+    "alarms",
+    "contextMenus",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "notifications",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://*/",
+    "https://*/"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "settings.html",
+    "default_icon": "img/icon_128.png"
+  },
+  "icons": {
+    "16": "img/icon_16.png",
+    "48": "img/icon_48.png",
+    "128": "img/icon_128.png"
+  }
 }
