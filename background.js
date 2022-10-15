@@ -219,7 +219,6 @@ function createAlarm() {
     })
 }
 
-
 async function clearFinishedTorrents() {
     // Ensure we have a valid session
     if (!config.server || !await qbtLogin()) {
@@ -227,16 +226,29 @@ async function clearFinishedTorrents() {
     }
 
     // Query Seeding Torrents with matching tag
-    let resp = await fetch(`${config.server}/api/v2/torrents/info?` + new URLSearchParams({
-        filter: "seeding,completed",
-        tag: config.auto_delete_tag,
-    }),
-        {
-            method: "GET",
-            mode: "no-cors"
-        })
-    console.debug(`Fetch Torrents Response OK: ${resp.ok}`)
-    const data = await resp.json()
+    const deletion_states = ["completed"]
+    let data = []
+    for (let i = 0; i < deletion_states.length; i++) {
+        let resp = await fetch(`${config.server}/api/v2/torrents/info?` + new URLSearchParams({
+            filter: deletion_states[i],
+            tag: config.auto_delete_tag,
+        }),
+            {
+                method: "GET",
+                mode: "no-cors"
+            })
+        console.debug(`Fetch Torrents Response OK: ${resp.ok}`)
+        if (!resp.ok) {
+            sendNotification(
+                null,
+                "Torrent Deletion Failed",
+                "Failed to query qBt for torrents to delete. Check settings."
+            )
+            return
+        }
+        data = data.concat(await resp.json())
+        console.log(data)
+    }
 
     if (!data.length) {
         console.debug("No torrents found to delete.")
@@ -284,7 +296,7 @@ async function clearFinishedTorrents() {
 
     // Delete finished torrents
     console.debug(`Removing ${hashes.length} torrent(s)...`)
-    resp = await fetch(`${config.server}/api/v2/torrents/delete?` + new URLSearchParams({
+    let resp = await fetch(`${config.server}/api/v2/torrents/delete?` + new URLSearchParams({
         hashes: hashes.join("|"),
         deleteFiles: "false"
     }),
@@ -294,6 +306,11 @@ async function clearFinishedTorrents() {
         })
     console.debug(`Delete Torrents Response OK: ${resp.ok}`)
     if (!resp.ok) {
+        sendNotification(
+            null,
+            "Torrent Delete Failed",
+            "Failed to delete torrents. Please check service worker log and report error."
+        )
         return
     }
 
