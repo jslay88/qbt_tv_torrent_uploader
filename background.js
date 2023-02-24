@@ -296,12 +296,13 @@ async function clearFinishedTorrents() {
 
     // Delete finished torrents
     console.debug(`Removing ${hashes.length} torrent(s)...`)
-    let resp = await fetch(`${config.server}/api/v2/torrents/delete?` + new URLSearchParams({
-        hashes: hashes.join("|"),
-        deleteFiles: "false"
-    }),
+    let formData = new FormData();
+    formData.append('hashes', hashes.join("|"))
+    formData.append('deleteFiles', "false")
+    let resp = await fetch(`${config.server}/api/v2/torrents/delete`,
         {
-            method: "GET",
+            method: "POST",
+            body: formData,
             mode: "no-cors"
         })
     console.debug(`Delete Torrents Response OK: ${resp.ok}`)
